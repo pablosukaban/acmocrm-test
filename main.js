@@ -18,9 +18,9 @@ function auth() {
 const currentUrl = new URL(window.location.href);
 const code = currentUrl.searchParams.get('code');
 
-const userBaseUrl = "https://ilyaprikhodko22.amocrm.ru"
+const userBaseUrl = 'https://ilyaprikhodko22.amocrm.ru';
 const authUrl = `${userBaseUrl}/oauth2/access_token`;
-const leadsUrl = `${userBaseUrl}/api/v4/leads`
+const leadsUrl = `${userBaseUrl}/api/v4/leads`;
 
 async function getTokens() {
   if (!code) {
@@ -48,23 +48,23 @@ async function getTokens() {
   access_token = json.access_token;
   refresh_token = json.refresh_token;
 
-  await getLeads()
+  await getLeads();
 }
 
 async function getLeads() {
   if (!access_token) {
-    return
+    return;
   }
 
   const response = await fetch(leadsUrl, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      'Authorization: Bearer ': access_token
-    }
-  })
+      Authorization: 'Bearer ' + access_token,
+    },
+  });
 
-  const json = await response.json()
-  console.log(json)
+  const json = await response.json();
+  console.log(json);
 }
 
 getTokens();
