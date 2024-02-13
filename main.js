@@ -65,7 +65,7 @@ async function getLeads() {
   });
 
   const json = await response.json();
-  console.log(json);
+  createTableFromJSON()
 }
 
 getTokens();
