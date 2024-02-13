@@ -31,7 +31,7 @@ function updateAuthInfo(e) {
 const url = new URL(window.location.href);
 const code = url.searchParams.get('code');
 
-const a = 'https://www.amocrm.ru/oauth2/access_token';
+const a = 'https://ilyaprikhodko22.amocrm.ru/oauth2/access_token';
 
 async function getTokens() {
   if (!code) {
