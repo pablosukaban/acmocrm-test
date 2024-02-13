@@ -4,6 +4,7 @@ const SECRET_KEY =
 
 let access_token;
 let refresh_token;
+let responseData;
 
 function auth() {
   window.open(
@@ -68,3 +69,60 @@ async function getLeads() {
 }
 
 getTokens();
+
+function createTableFromJSON() {
+  const leads = responseData._embedded.leads; // Получаем массив leads
+
+  if (!responseData && !leads && leads.length === 0) {
+    document.getElementById('table-container').innerText = 'Данных нет';
+  }
+
+  // Создаем таблицу и тело таблицы
+  const table = document.createElement('table');
+  table.setAttribute('border', '1'); // Добавляем рамку таблицы для визуализации
+  const tableBody = document.createElement('tbody');
+
+  // Создаем шапку таблицы
+  const headerRow = document.createElement('tr');
+  const headers = [
+    'ID',
+    'Название',
+    'Цена',
+    'Ответственный',
+    'Статус',
+    'Pipeline ID',
+    'Создано',
+    'Обновлено',
+  ];
+  headers.forEach((headerText) => {
+    const headerCell = document.createElement('th');
+    headerCell.textContent = headerText;
+    headerRow.appendChild(headerCell);
+  });
+  tableBody.appendChild(headerRow);
+
+  // Наполняем таблицу строками
+  leads.forEach((lead) => {
+    const row = document.createElement('tr');
+    const rowData = [
+      lead.id,
+      lead.name,
+      lead.price,
+      lead.responsible_user_id,
+      lead.status_id,
+      lead.pipeline_id,
+      new Date(lead.created_at * 1000).toLocaleString(),
+      new Date(lead.updated_at * 1000).toLocaleString(),
+    ];
+    rowData.forEach((data) => {
+      const cell = document.createElement('td');
+      cell.textContent = data;
+      row.appendChild(cell);
+    });
+    tableBody.appendChild(row);
+  });
+
+  // Добавляем тело таблицы в таблицу и таблицу в контейнер
+  table.appendChild(tableBody);
+  document.getElementById('table-container').appendChild(table);
+}
