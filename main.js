@@ -71,11 +71,11 @@ async function getLeads() {
 getTokens();
 
 function createTableFromJSON() {
-  const leads = responseData._embedded.leads; // Получаем массив leads
-
-  if (!responseData && !leads && leads.length === 0) {
+  if (!responseData && !responseData?._embedded?.leads && responseData?._embedded?.leads?.length === 0) {
     document.getElementById('table-container').innerText = 'Данных нет';
   }
+
+  const leads = responseData._embedded.leads; // Получаем массив leads
 
   // Создаем таблицу и тело таблицы
   const table = document.createElement('table');
