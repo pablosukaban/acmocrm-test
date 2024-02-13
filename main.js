@@ -65,6 +65,8 @@ async function getLeads() {
   });
 
   const json = await response.json();
+  responseData = json
+  
   createTableFromJSON()
 }
 
