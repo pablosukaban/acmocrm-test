@@ -13,7 +13,8 @@ const leadsUrl = `${userBaseUrl}/api/v4/leads`;
 
 let access_token;
 let refresh_token;
-let responseData;
+
+let mainLeads;
 
 // ===============
 
@@ -52,6 +53,7 @@ async function init() {
   button.style.display = "none";
 
   createTableFromJSON(leads);
+  mainLeads = leads;
 }
 
 async function getTokens() {
@@ -95,19 +97,19 @@ async function getLeads() {
 
   const json = await response.json();
 
-  return json;
+  return json?._embeded.leads;
 }
 
-function createTableFromJSON(responseData) {
-  if (
-    !responseData &&
-    !responseData?._embedded?.leads &&
-    responseData?._embedded?.leads?.length === 0
-  ) {
-    document.getElementById("table-container").innerText = "Данных нет";
-  }
+function createTableFromJSON(leads) {
+  // if (
+  //   !responseData &&
+  //   !responseData?._embedded?.leads &&
+  //   responseData?._embedded?.leads?.length === 0
+  // ) {
+  //   document.getElementById("table-container").innerText = "Данных нет";
+  // }
 
-  const leads = responseData._embedded.leads;
+  // const leads = responseData._embedded.leads;
 
   const table = document.createElement("table");
   table.setAttribute("border", "1");
@@ -128,7 +130,7 @@ function createTableFromJSON(responseData) {
     const headerCell = document.createElement("th");
     if (["Название", "Цена"].includes(headerText)) {
       headerCell.addEventListener("click", () => {
-        console.log(headerText);
+        sortLeadsByType(headerText);
       });
       headerCell.style.cursor = "pointer";
     }
@@ -159,4 +161,20 @@ function createTableFromJSON(responseData) {
 
   table.appendChild(tableBody);
   document.getElementById("table-container").appendChild(table);
+}
+
+function sortLeadsByType(sortType) {
+  if (sortType === "Название") {
+    const newLeads = mainLeads.map((item) => (item.name = "yo"));
+
+    createTableFromJSON(newLeads);
+    mainLeads = newLeads;
+  }
+
+  if (sortType === "Цена") {
+    const newLeads = mainLeads.map((item) => (item.price = "42"));
+
+    createTableFromJSON(newLeads);
+    mainLeads = newLeads;
+  }
 }
