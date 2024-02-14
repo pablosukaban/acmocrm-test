@@ -34,7 +34,11 @@ function auth() {
 init();
 
 async function init() {
-  await getTokens();
+  const tokensData = await getTokens();
+
+  access_token = tokensData.access_token;
+  refresh_token = tokensData.refresh_token;
+
   const leads = await getLeads();
   createTableFromJSON(leads);
 }
@@ -61,9 +65,6 @@ async function getTokens() {
 
   const json = await response.json();
 
-  access_token = json.access_token;
-  refresh_token = json.refresh_token;
-
   return json;
 }
 
@@ -80,10 +81,8 @@ async function getLeads() {
   });
 
   const json = await response.json();
-  responseData = json;
 
-  createTableFromJSON();
-  button.style.display = "none";
+  return json;
 }
 
 function createTableFromJSON(responseData) {
