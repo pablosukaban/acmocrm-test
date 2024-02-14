@@ -77,6 +77,7 @@ async function getLeads() {
   responseData = json;
 
   createTableFromJSON();
+  button.style.display = "none";
 }
 
 function createTableFromJSON() {
