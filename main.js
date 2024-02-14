@@ -130,6 +130,7 @@ function createTableFromJSON(responseData) {
       headerCell.addEventListener("click", () => {
         console.log(headerText);
       });
+      headerCell.style.cursor = "pointer";
     }
     headerCell.textContent = headerText;
     headerRow.appendChild(headerCell);
