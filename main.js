@@ -97,7 +97,7 @@ async function getLeads() {
 
   const json = await response.json();
 
-  return json?._embeded.leads;
+  return json?._embedded?.leads;
 }
 
 function createTableFromJSON(leads) {
