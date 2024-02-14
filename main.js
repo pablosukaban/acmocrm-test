@@ -31,7 +31,13 @@ function auth() {
 
 // ===============
 
-getTokens();
+init();
+
+async function init() {
+  await getTokens();
+  const leads = await getLeads();
+  createTableFromJSON(leads);
+}
 
 async function getTokens() {
   if (!code) {
@@ -58,7 +64,7 @@ async function getTokens() {
   access_token = json.access_token;
   refresh_token = json.refresh_token;
 
-  await getLeads();
+  return json;
 }
 
 async function getLeads() {
@@ -80,7 +86,7 @@ async function getLeads() {
   button.style.display = "none";
 }
 
-function createTableFromJSON() {
+function createTableFromJSON(responseData) {
   if (
     !responseData &&
     !responseData?._embedded?.leads &&
