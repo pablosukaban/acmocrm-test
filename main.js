@@ -18,7 +18,7 @@ function auth() {
 const button = document.getElementById("app");
 
 button.addEventListener("click", () => {
-  getTokens();
+  auth();
 });
 
 const currentUrl = new URL(window.location.href);
@@ -28,9 +28,10 @@ const userBaseUrl = "https://ilyaprikhodko22.amocrm.ru";
 const authUrl = `${userBaseUrl}/oauth2/access_token`;
 const leadsUrl = `${userBaseUrl}/api/v4/leads`;
 
+getTokens();
+
 async function getTokens() {
   if (!code) {
-    auth();
     return;
   }
 
