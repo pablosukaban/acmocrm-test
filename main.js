@@ -110,6 +110,8 @@ function createTableFromJSON(leads) {
   // }
 
   // const leads = responseData._embedded.leads;
+  const tableContainer = document.getElementById("table-container");
+  tableContainer.innerHTML = "";
 
   const table = document.createElement("table");
   table.setAttribute("border", "1");
@@ -160,7 +162,7 @@ function createTableFromJSON(leads) {
   });
 
   table.appendChild(tableBody);
-  document.getElementById("table-container").appendChild(table);
+  tableContainer.appendChild(table);
 }
 
 function sortLeadsByType(sortType) {
