@@ -29,8 +29,6 @@ function auth() {
     "Предоставить доступ",
     "scrollbars, status, resizable, width=750, height=580",
   );
-
-  button.style.display = "none";
 }
 
 // ===============
@@ -48,6 +46,11 @@ async function init() {
   refresh_token = tokensData.refresh_token;
 
   const leads = await getLeads();
+  const leadsTitle = document.getElementById("title");
+
+  leadsTitle.style.display = "block";
+  button.style.display = "none";
+
   createTableFromJSON(leads);
 }
 

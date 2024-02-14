@@ -49,6 +49,7 @@ button:focus-visible {
 
 #title {
     text-align: center;
+    display: none;
 }
 
 @media (prefers-color-scheme: light) {
