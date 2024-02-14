@@ -165,14 +165,14 @@ function createTableFromJSON(leads) {
 
 function sortLeadsByType(sortType) {
   if (sortType === "Название") {
-    const newLeads = mainLeads.map((item) => (item.name = "yo"));
+    const newLeads = mainLeads.map((item) => ({ ...item, name: "yo" }));
 
     createTableFromJSON(newLeads);
     mainLeads = newLeads;
   }
 
   if (sortType === "Цена") {
-    const newLeads = mainLeads.map((item) => (item.price = "42"));
+    const newLeads = mainLeads.map((item) => ({ ...item, price: 42 }));
 
     createTableFromJSON(newLeads);
     mainLeads = newLeads;
