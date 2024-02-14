@@ -34,13 +34,16 @@ function auth() {
 init();
 
 async function init() {
-  button.style.display = "none";
   const tokensData = await getTokens();
 
-  if (tokensData) {
-    access_token = tokensData.access_token;
-    refresh_token = tokensData.refresh_token;
+  if (!tokensData) {
+    return;
   }
+
+  access_token = tokensData.access_token;
+  refresh_token = tokensData.refresh_token;
+
+  button.style.display = "none";
 
   const leads = await getLeads();
   createTableFromJSON(leads);
