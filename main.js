@@ -2,9 +2,24 @@ const CLIENT_ID = "3c0d2422-e6d8-43c4-90e8-431f6cdd4a33";
 const SECRET_KEY =
   "cfH4RzKVSqou9Hyvsam3xUM1g9RSC13DTiN4nDTejWOnkI4bthso8EBxMJYLmiWS";
 
+const currentUrl = new URL(window.location.href);
+const code = currentUrl.searchParams.get("code");
+
+const userBaseUrl = "https://ilyaprikhodko22.amocrm.ru";
+const authUrl = `${userBaseUrl}/oauth2/access_token`;
+const leadsUrl = `${userBaseUrl}/api/v4/leads`;
+
 let access_token;
 let refresh_token;
 let responseData;
+
+// ===============
+
+const button = document.getElementById("auth");
+
+button.addEventListener("click", () => {
+  auth();
+});
 
 function auth() {
   window.open(
@@ -15,18 +30,6 @@ function auth() {
 }
 
 // ===============
-const button = document.getElementById("app");
-
-button.addEventListener("click", () => {
-  auth();
-});
-
-const currentUrl = new URL(window.location.href);
-const code = currentUrl.searchParams.get("code");
-
-const userBaseUrl = "https://ilyaprikhodko22.amocrm.ru";
-const authUrl = `${userBaseUrl}/oauth2/access_token`;
-const leadsUrl = `${userBaseUrl}/api/v4/leads`;
 
 getTokens();
 
@@ -85,14 +88,12 @@ function createTableFromJSON() {
     document.getElementById("table-container").innerText = "Данных нет";
   }
 
-  const leads = responseData._embedded.leads; // Получаем массив leads
+  const leads = responseData._embedded.leads;
 
-  // Создаем таблицу и тело таблицы
   const table = document.createElement("table");
-  table.setAttribute("border", "1"); // Добавляем рамку таблицы для визуализации
+  table.setAttribute("border", "1");
   const tableBody = document.createElement("tbody");
 
-  // Создаем шапку таблицы
   const headerRow = document.createElement("tr");
   const headers = [
     "ID",
@@ -111,7 +112,6 @@ function createTableFromJSON() {
   });
   tableBody.appendChild(headerRow);
 
-  // Наполняем таблицу строками
   leads.forEach((lead) => {
     const row = document.createElement("tr");
     const rowData = [
@@ -132,7 +132,6 @@ function createTableFromJSON() {
     tableBody.appendChild(row);
   });
 
-  // Добавляем тело таблицы в таблицу и таблицу в контейнер
   table.appendChild(tableBody);
   document.getElementById("table-container").appendChild(table);
 }
