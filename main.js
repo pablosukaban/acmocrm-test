@@ -53,6 +53,7 @@ async function init() {
 
 async function getTokens() {
   if (!code) {
+    console.error("Error! Something went wrong!");
     return;
   }
 
@@ -78,6 +79,7 @@ async function getTokens() {
 
 async function getLeads() {
   if (!access_token) {
+    console.error("Error! Something went wrong!");
     return;
   }
 
