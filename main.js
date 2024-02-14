@@ -2,6 +2,8 @@ const CLIENT_ID = "3c0d2422-e6d8-43c4-90e8-431f6cdd4a33";
 const SECRET_KEY =
   "cfH4RzKVSqou9Hyvsam3xUM1g9RSC13DTiN4nDTejWOnkI4bthso8EBxMJYLmiWS";
 
+const app = document.getElementById("app");
+
 const currentUrl = new URL(window.location.href);
 const code = currentUrl.searchParams.get("code");
 
@@ -27,6 +29,8 @@ function auth() {
     "Предоставить доступ",
     "scrollbars, status, resizable, width=750, height=580",
   );
+
+  button.style.display = "none";
 }
 
 // ===============
@@ -42,8 +46,6 @@ async function init() {
 
   access_token = tokensData.access_token;
   refresh_token = tokensData.refresh_token;
-
-  button.style.display = "none";
 
   const leads = await getLeads();
   createTableFromJSON(leads);
