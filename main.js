@@ -126,6 +126,11 @@ function createTableFromJSON(responseData) {
   ];
   headers.forEach((headerText) => {
     const headerCell = document.createElement("th");
+    if (["Название", "Цена"].includes(headerText)) {
+      headerCell.addEventListener("click", () => {
+        console.log(headerText);
+      });
+    }
     headerCell.textContent = headerText;
     headerRow.appendChild(headerCell);
   });
