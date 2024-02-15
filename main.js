@@ -29,6 +29,7 @@ prevButton.addEventListener("click", async () => {
   if (currentPage === 1) return;
   const prevPage = currentPage - 1;
   const { leads, page } = await getLeads(prevPage, currentLimit);
+  createTableFromJSON(leads);
   pageSpan.innerText = prevPage;
 
   mainLeads = leads;
@@ -38,6 +39,7 @@ prevButton.addEventListener("click", async () => {
 nextButton.addEventListener("click", async () => {
   const nextPage = currentPage + 1;
   const { leads, page } = await getLeads(nextPage, currentLimit);
+  createTableFromJSON(leads);
   pageSpan.innerText = nextPage;
 
   mainLeads = leads;
