@@ -125,15 +125,13 @@ function createTableFromJSON(leads) {
     headerRow.appendChild(headerCell);
     if (["Название", "Цена"].includes(headerText)) {
       headerCell.style.cursor = "pointer";
-
       headerCell.addEventListener("click", () => {
         sortLeadsByType(headerText);
       });
 
       const arrowIcon = document.createElement("div");
       arrowIcon.classList.add("triangle");
-
-      headerRow.appendChild(arrowIcon);
+      headerCell.appendChild(arrowIcon);
     }
   });
   tableBody.appendChild(headerRow);
