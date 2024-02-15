@@ -16,16 +16,24 @@ let refresh_token;
 
 let mainLeads;
 
-const fetchButton = document.getElementById("fetch");
-fetchButton.addEventListener("click", () => {
-  const select = document.getElementById("select");
-  const limit = select.value;
-  getLeads(1, limit).then((leads) => {
+let currentPage = 1;
+
+const select = document.getElementById("select");
+
+select.addEventListener("change", (event) => {
+  const value = event.target.value;
+  if (value === "all") {
+    const { leads } = getLeads();
     createTableFromJSON(leads);
     mainLeads = leads;
-  });
-})
-
+    currentPage = 1;
+  } else {
+    const { leads, page } = getLeads(currentPage, value);
+    createTableFromJSON(leads);
+    mainLeads = leads;
+    currentPage = page;
+  }
+});
 
 // ===============
 
@@ -57,8 +65,7 @@ async function init() {
   access_token = tokensData.access_token;
   refresh_token = tokensData.refresh_token;
 
-  const leads = await getLeads();
-  const leadsTitle = document.getElementById("title");
+  const { leads } = await getLeads();
   const wrapper = document.getElementById("wrapper");
 
   wrapper.style.display = "block";
@@ -100,7 +107,7 @@ async function getLeads(page = 1, limit = 250) {
     return;
   }
 
-  const params = new URLSearchParams({page, limit});
+  const params = new URLSearchParams({ page, limit });
 
   const response = await fetch(leadsUrl + "?" + params, {
     method: "GET",
@@ -111,7 +118,7 @@ async function getLeads(page = 1, limit = 250) {
 
   const json = await response.json();
 
-  return json?._embedded?.leads;
+  return { leads: json?._embedded?.leads, page: json?._page };
 }
 
 function createTableFromJSON(leads) {
