@@ -38,12 +38,17 @@ prevButton.addEventListener("click", async () => {
 
 nextButton.addEventListener("click", async () => {
   const nextPage = currentPage + 1;
-  const { leads, page } = await getLeads(nextPage, currentLimit);
-  createTableFromJSON(leads);
-  pageSpan.innerText = nextPage;
 
-  mainLeads = leads;
-  currentPage = page;
+  try {
+    const { leads, page } = await getLeads(nextPage, currentLimit);
+    createTableFromJSON(leads);
+    pageSpan.innerText = nextPage;
+
+    mainLeads = leads;
+    currentPage = page;
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 select.addEventListener("change", async (event) => {
