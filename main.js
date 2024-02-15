@@ -160,8 +160,7 @@ function sortLeadsByType(sortType) {
   const sortMethod = sortType === "Название" ? sortByName : sortByPrice;
   const sortedLeads = mainLeads.toSorted(sortMethod);
 
-  if (sortedLeads === mainLeads) {
-    console.log("ravno");
+  if (compareArrays(sortedLeads, mainLeads)) {
     const reversedLeads = sortedLeads.toReversed();
     mainLeads = reversedLeads;
     createTableFromJSON(reversedLeads);
@@ -171,35 +170,6 @@ function sortLeadsByType(sortType) {
 
   createTableFromJSON(sortedLeads);
   mainLeads = sortedLeads;
-  // =========
-
-  // if (sortType === "Название") {
-  //   const newLeads = mainLeads.toSorted(sortByName);
-
-  //   if (newLeads === mainLeads) {
-  //     mainLeads = newLeads.toReversed();
-  //     createTableFromJSON(newLeads);
-
-  //     return;
-  //   }
-
-  //   createTableFromJSON(newLeads);
-  //   mainLeads = newLeads;
-  // }
-
-  // if (sortType === "Цена") {
-  //   const newLeads = mainLeads.toSorted(sortByPrice);
-
-  //   if (newLeads === mainLeads) {
-  //     mainLeads = newLeads.toReversed();
-  //     createTableFromJSON(newLeads);
-
-  //     return;
-  //   }
-
-  //   createTableFromJSON(newLeads);
-  //   mainLeads = newLeads;
-  // }
 }
 
 function sortByName(a, b) {
@@ -220,4 +190,8 @@ function sortByPrice(a, b) {
   } else {
     return 0;
   }
+}
+
+function compareArrays(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
 }
