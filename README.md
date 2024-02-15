@@ -8,6 +8,8 @@
 - Пагинация;
 - Сортировка по названию и цене, при нажатии на соответствующий заголовок;
 
+Обход ошибки CORS был реализован через запуск браузера с флагами `open -na Google\ Chrome --args --user-data-dir=/tmp/temporary-chrome-profile-dir --disable-web-security --disable-site-isolation-trials`, прокси сервер решил не настраивать, так как хотел потратить отведенное время на написание самой страницы
+
 Стек:
 - HTML
 - CSS
