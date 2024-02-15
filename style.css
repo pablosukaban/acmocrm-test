@@ -68,3 +68,7 @@ button:focus-visible {
     align-items: center;
     gap: 4px;
 }
+
+#wrapper {
+    display: none;
+}
