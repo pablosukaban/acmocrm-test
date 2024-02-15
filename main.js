@@ -19,30 +19,30 @@ let mainLeads;
 let currentPage = 1;
 let currentLimit = 250;
 
-const select = document.getElementById("select");
+const selectElement = document.getElementById("select");
 
-const pageSpan = document.getElementById("page");
-const prevButton = document.getElementById("prev");
-const nextButton = document.getElementById("next");
+const pageSpanElement = document.getElementById("page");
+const prevButtonElement = document.getElementById("prev");
+const nextButtonElement = document.getElementById("next");
 
-prevButton.addEventListener("click", async () => {
+prevButtonElement.addEventListener("click", async () => {
   if (currentPage === 1) return;
   const prevPage = currentPage - 1;
   const { leads, page } = await getLeads(prevPage, currentLimit);
   createTableFromJSON(leads);
-  pageSpan.innerText = prevPage;
+  pageSpanElement.innerText = prevPage;
 
   mainLeads = leads;
   currentPage = page;
 });
 
-nextButton.addEventListener("click", async () => {
+nextButtonElement.addEventListener("click", async () => {
   const nextPage = currentPage + 1;
 
   try {
     const { leads, page } = await getLeads(nextPage, currentLimit);
     createTableFromJSON(leads);
-    pageSpan.innerText = nextPage;
+    pageSpanElement.innerText = nextPage;
 
     mainLeads = leads;
     currentPage = page;
@@ -51,7 +51,7 @@ nextButton.addEventListener("click", async () => {
   }
 });
 
-select.addEventListener("change", async (event) => {
+selectElement.addEventListener("change", async (event) => {
   const value = event.target.value;
   currentLimit = value;
 
@@ -68,14 +68,14 @@ select.addEventListener("change", async (event) => {
     currentPage = page;
   }
 
-  pageSpan.innerText = currentPage;
+  pageSpanElement.innerText = currentPage;
 });
 
 // ===============
 
-const authButton = document.getElementById("auth");
+const authButtonElement = document.getElementById("auth");
 
-authButton.addEventListener("click", () => {
+authButtonElement.addEventListener("click", () => {
   auth();
 });
 
@@ -115,7 +115,7 @@ async function init() {
   const title = document.getElementById("title");
 
   wrapper.style.display = "block";
-  authButton.style.display = "none";
+  authButtonElement.style.display = "none";
   title.style.display = "block";
 
   createTableFromJSON(leads);
