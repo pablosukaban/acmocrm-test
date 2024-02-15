@@ -20,15 +20,15 @@ let currentPage = 1;
 
 const select = document.getElementById("select");
 
-select.addEventListener("change", (event) => {
+select.addEventListener("change", async (event) => {
   const value = event.target.value;
   if (value === "all") {
-    const { leads } = getLeads();
+    const { leads } = await getLeads();
     createTableFromJSON(leads);
     mainLeads = leads;
     currentPage = 1;
   } else {
-    const { leads, page } = getLeads(currentPage, value);
+    const { leads, page } = await getLeads(currentPage, value);
     createTableFromJSON(leads);
     mainLeads = leads;
     currentPage = page;
