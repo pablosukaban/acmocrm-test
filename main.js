@@ -161,7 +161,7 @@ function sortLeadsByType(sortType) {
     const newLeads = mainLeads.toSorted(sortByName);
 
     if (newLeads === mainLeads) {
-      mainLeads = mainLeads.toReversed();
+      mainLeads = newLeads.toReversed();
     }
 
     createTableFromJSON(newLeads);
@@ -172,7 +172,7 @@ function sortLeadsByType(sortType) {
     const newLeads = mainLeads.toSorted(sortByPrice);
 
     if (newLeads === mainLeads) {
-      mainLeads = mainLeads.toReversed();
+      mainLeads = newLeads.toReversed();
     }
 
     createTableFromJSON(newLeads);
