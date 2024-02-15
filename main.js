@@ -100,15 +100,13 @@ async function getLeads(page = 1, limit = 250) {
     return;
   }
 
-  const response = await fetch(leadsUrl, {
+  const params = new URLSearchParams({page, limit});
+
+  const response = await fetch(leadsUrl + "?" + params, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + access_token,
     },
-    params: {
-      "page": page,
-      "limit": limit
-    }
   });
 
   const json = await response.json();
