@@ -16,6 +16,17 @@ let refresh_token;
 
 let mainLeads;
 
+const fetchButton = document.getElementById("fetch");
+fetchButton.addEventListener("click", () => {
+  const select = document.getElementById("select");
+  const limit = select.value;
+  getLeads(1, limit).then((leads) => {
+    createTableFromJSON(leads);
+    mainLeads = leads;
+  });
+})
+
+
 // ===============
 
 const button = document.getElementById("auth");
@@ -48,8 +59,9 @@ async function init() {
 
   const leads = await getLeads();
   const leadsTitle = document.getElementById("title");
+  const wrapper = document.getElementById("wrapper");
 
-  leadsTitle.style.display = "block";
+  wrapper.style.display = "block";
   button.style.display = "none";
 
   createTableFromJSON(leads);
@@ -82,7 +94,7 @@ async function getTokens() {
   return json;
 }
 
-async function getLeads() {
+async function getLeads(page = 1, limit = 250) {
   if (!access_token) {
     console.error("Error! Something went wrong!");
     return;
@@ -93,6 +105,10 @@ async function getLeads() {
     headers: {
       Authorization: "Bearer " + access_token,
     },
+    params: {
+      "page": page,
+      "limit": limit
+    }
   });
 
   const json = await response.json();
