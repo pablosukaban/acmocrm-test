@@ -101,15 +101,6 @@ async function getLeads() {
 }
 
 function createTableFromJSON(leads) {
-  // if (
-  //   !responseData &&
-  //   !responseData?._embedded?.leads &&
-  //   responseData?._embedded?.leads?.length === 0
-  // ) {
-  //   document.getElementById("table-container").innerText = "Данных нет";
-  // }
-
-  // const leads = responseData._embedded.leads;
   const tableContainer = document.getElementById("table-container");
   tableContainer.innerHTML = "";
 
@@ -130,14 +121,20 @@ function createTableFromJSON(leads) {
   ];
   headers.forEach((headerText) => {
     const headerCell = document.createElement("th");
+    headerCell.textContent = headerText;
+    headerRow.appendChild(headerCell);
     if (["Название", "Цена"].includes(headerText)) {
+      headerCell.style.cursor = "pointer";
+
       headerCell.addEventListener("click", () => {
         sortLeadsByType(headerText);
       });
-      headerCell.style.cursor = "pointer";
+
+      const arrowIcon = document.createElement("div");
+      arrowIcon.classList.add("triangle");
+
+      headerRow.appendChild(arrowIcon);
     }
-    headerCell.textContent = headerText;
-    headerRow.appendChild(headerCell);
   });
   tableBody.appendChild(headerRow);
 
