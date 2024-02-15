@@ -72,3 +72,10 @@ button:focus-visible {
 #wrapper {
     display: none;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}

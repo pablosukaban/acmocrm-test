@@ -17,16 +17,43 @@ let refresh_token;
 let mainLeads;
 
 let currentPage = 1;
+let currentLimit = 250;
 
 const select = document.getElementById("select");
 
+const pageSpan = document.getElementById("page");
+const prevButton = document.getElementById("prev");
+const nextButton = document.getElementById("next");
+
+prevButton.addEventListener("click", async () => {
+  if (currentPage === 1) return;
+  const prevPage = currentPage - 1;
+  const { leads, page } = await getLeads(prevPage, currentLimit);
+  pageSpan.innerText = prevPage;
+
+  mainLeads = leads;
+  currentPage = page;
+});
+
+nextButton.addEventListener("click", async () => {
+  const nextPage = currentPage + 1;
+  const { leads, page } = await getLeads(nextPage, currentLimit);
+  pageSpan.innerText = nextPage;
+
+  mainLeads = leads;
+  currentPage = page;
+});
+
 select.addEventListener("change", async (event) => {
   const value = event.target.value;
+  currentLimit = value;
+
   if (value === "all") {
     const { leads } = await getLeads();
     createTableFromJSON(leads);
     mainLeads = leads;
     currentPage = 1;
+    currentLimit = 250;
   } else {
     const { leads, page } = await getLeads(currentPage, value);
     createTableFromJSON(leads);

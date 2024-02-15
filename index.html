@@ -1,26 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Тестовое задание, компания Эмфи</title>
-  </head>
-  <body>
-    <div id="app">
-      <button id="auth">Auth</button>
-      <div id="wrapper">
-        <h1 id="title">Сделки</h1>
-        <select id="select">
-          <option disabled>Количество сделок</option>
-          <option selected value="all">Все</option>
-          <option value="2">2</option>
-          <option value="5">5</option>
-          <option value="10">10</option>
-        </select>
-        <div id="table-container"></div>
-      </div>
-    </div>
-    <script type="module" src="/main.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Тестовое задание, компания Эмфи</title>
+    </head>
+    <body>
+        <div id="app">
+            <button id="auth">Auth</button>
+            <div id="wrapper">
+                <h1 id="title">Сделки</h1>
+                <select id="select">
+                    <option disabled>Количество сделок</option>
+                    <option selected value="all">Все</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                <div id="table-container"></div>
+                <div class="pagination">
+                    <button id="prev">Пред.</button>
+                    <span id="page">1</span>
+                    <button id="next">След.</button>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/main.js"></script>
+    </body>
 </html>
