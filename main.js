@@ -67,6 +67,8 @@ select.addEventListener("change", async (event) => {
     mainLeads = leads;
     currentPage = page;
   }
+
+  pageSpan.innerText = currentPage;
 });
 
 // ===============
