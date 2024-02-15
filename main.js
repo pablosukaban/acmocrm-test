@@ -157,33 +157,49 @@ function createTableFromJSON(leads) {
 }
 
 function sortLeadsByType(sortType) {
-  if (sortType === "Название") {
-    const newLeads = mainLeads.toSorted(sortByName);
+  const sortMethod = sortType === "Название" ? sortByName : sortByPrice;
+  const sortedLeads = mainLeads.toSorted(sortMethod);
 
-    if (newLeads === mainLeads) {
-      mainLeads = newLeads.toReversed();
-      createTableFromJSON(newLeads);
+  if (sortedLeads === mainLeads) {
+    console.log("ravno");
+    const reversedLeads = sortedLeads.toReversed();
+    mainLeads = reversedLeads;
+    createTableFromJSON(reversedLeads);
 
-      return;
-    }
-
-    createTableFromJSON(newLeads);
-    mainLeads = newLeads;
+    return;
   }
 
-  if (sortType === "Цена") {
-    const newLeads = mainLeads.toSorted(sortByPrice);
+  createTableFromJSON(sortedLeads);
+  mainLeads = sortedLeads;
+  // =========
 
-    if (newLeads === mainLeads) {
-      mainLeads = newLeads.toReversed();
-      createTableFromJSON(newLeads);
+  // if (sortType === "Название") {
+  //   const newLeads = mainLeads.toSorted(sortByName);
 
-      return;
-    }
+  //   if (newLeads === mainLeads) {
+  //     mainLeads = newLeads.toReversed();
+  //     createTableFromJSON(newLeads);
 
-    createTableFromJSON(newLeads);
-    mainLeads = newLeads;
-  }
+  //     return;
+  //   }
+
+  //   createTableFromJSON(newLeads);
+  //   mainLeads = newLeads;
+  // }
+
+  // if (sortType === "Цена") {
+  //   const newLeads = mainLeads.toSorted(sortByPrice);
+
+  //   if (newLeads === mainLeads) {
+  //     mainLeads = newLeads.toReversed();
+  //     createTableFromJSON(newLeads);
+
+  //     return;
+  //   }
+
+  //   createTableFromJSON(newLeads);
+  //   mainLeads = newLeads;
+  // }
 }
 
 function sortByName(a, b) {
