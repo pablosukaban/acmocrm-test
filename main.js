@@ -162,6 +162,9 @@ function sortLeadsByType(sortType) {
 
     if (newLeads === mainLeads) {
       mainLeads = newLeads.toReversed();
+      createTableFromJSON(newLeads);
+
+      return;
     }
 
     createTableFromJSON(newLeads);
@@ -173,6 +176,9 @@ function sortLeadsByType(sortType) {
 
     if (newLeads === mainLeads) {
       mainLeads = newLeads.toReversed();
+      createTableFromJSON(newLeads);
+
+      return;
     }
 
     createTableFromJSON(newLeads);
