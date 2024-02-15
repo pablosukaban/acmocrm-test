@@ -71,9 +71,9 @@ select.addEventListener("change", async (event) => {
 
 // ===============
 
-const button = document.getElementById("auth");
+const authButton = document.getElementById("auth");
 
-button.addEventListener("click", () => {
+authButton.addEventListener("click", () => {
   auth();
 });
 
@@ -101,9 +101,11 @@ async function init() {
 
   const { leads } = await getLeads();
   const wrapper = document.getElementById("wrapper");
+  const title = document.getElementById("title");
 
   wrapper.style.display = "block";
-  button.style.display = "none";
+  authButton.style.display = "none";
+  title.style.display = "block";
 
   createTableFromJSON(leads);
   mainLeads = leads;
