@@ -128,10 +128,6 @@ function createTableFromJSON(leads) {
       headerCell.addEventListener("click", () => {
         sortLeadsByType(headerText);
       });
-
-      const arrowIcon = document.createElement("div");
-      arrowIcon.classList.add("triangle");
-      headerCell.appendChild(arrowIcon);
     }
   });
   tableBody.appendChild(headerRow);
@@ -162,16 +158,44 @@ function createTableFromJSON(leads) {
 
 function sortLeadsByType(sortType) {
   if (sortType === "Название") {
-    const newLeads = mainLeads.map((item) => ({ ...item, name: "yo" }));
+    const newLeads = mainLeads.toSorted(sortByName);
+
+    if (newLeads === mainLeads) {
+      mainLeads = mainLeads.reverse();
+    }
 
     createTableFromJSON(newLeads);
     mainLeads = newLeads;
   }
 
   if (sortType === "Цена") {
-    const newLeads = mainLeads.map((item) => ({ ...item, price: 42 }));
+    const newLeads = mainLeads.toSorted(sortByPrice);
+
+    if (newLeads === mainLeads) {
+      mainLeads = mainLeads.reverse();
+    }
 
     createTableFromJSON(newLeads);
     mainLeads = newLeads;
+  }
+}
+
+function sortByName(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+function sortByPrice(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  } else {
+    return 0;
   }
 }
