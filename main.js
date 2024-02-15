@@ -161,6 +161,7 @@ function sortLeadsByType(sortType) {
   const sortedLeads = mainLeads.toSorted(sortMethod);
 
   if (compareArrays(sortedLeads, mainLeads)) {
+    console.log("Already sorted");
     const reversedLeads = sortedLeads.toReversed();
     mainLeads = reversedLeads;
     createTableFromJSON(reversedLeads);
