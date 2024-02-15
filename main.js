@@ -79,6 +79,10 @@ authButton.addEventListener("click", () => {
   auth();
 });
 
+/**
+ * Открывает новое окно для начала процесса аутентификации.
+ *
+ */
 function auth() {
   window.open(
     `https://www.amocrm.ru/oauth?client_id=${CLIENT_ID}&state=${123}&mode=post_message`,
@@ -91,6 +95,11 @@ function auth() {
 
 init();
 
+/**
+ * Инициализирует функцию, получая данные о токенах и лидах, устанавливая токены доступа и обновления,
+ * и обновляет пользовательский интерфейс для отображения таблицы сделок и соответствующих элементов
+ *
+ */
 async function init() {
   const tokensData = await getTokens();
 
@@ -113,6 +122,11 @@ async function init() {
   mainLeads = leads;
 }
 
+/**
+ * Асинхронно извлекает токены из указанного URL-адреса аутентификации, используя предоставленный код.
+ *
+ * @return {Object} JSON-объект, содержащий полученные токены.
+ */
 async function getTokens() {
   if (!code) {
     console.error("Error! Something went wrong!");
@@ -139,6 +153,13 @@ async function getTokens() {
   return json;
 }
 
+/**
+ * Асинхронно извлекает сделки с указанной страницы с номером страницы по умолчанию 1 и ограничением в 250 записей.
+ *
+ * @param {number} page - Номер страницы, с которой будут получены сделки.
+ * @param {number} limit - Максимальное количество
+ * @return {Object} Объект, содержащий полученные ссылки и номер страницы
+ */
 async function getLeads(page = 1, limit = 250) {
   if (!access_token) {
     console.error("Error! Something went wrong!");
@@ -159,6 +180,12 @@ async function getLeads(page = 1, limit = 250) {
   return { leads: json?._embedded?.leads, page: json?._page };
 }
 
+/**
+ * Создает таблицу из заданных JSON-данных и добавляет ее в контейнер таблиц в DOM.
+ *
+ * @param {Array} leads - JSON-данные, из которых нужно создать таблицу
+ * @return {void}
+ */
 function createTableFromJSON(leads) {
   const tableContainer = document.getElementById("table-container");
   tableContainer.innerHTML = "";
@@ -215,6 +242,13 @@ function createTableFromJSON(leads) {
   tableContainer.appendChild(table);
 }
 
+/**
+ * Сортирует сделки на основе заданного типа сортировки.
+ *
+ * @param {string} sortType - Тип сортировки, которую необходимо выполнить ("Название" или "Цена").
+ * @return {undefined}
+ */
+
 function sortLeadsByType(sortType) {
   const sortMethod = sortType === "Название" ? sortByName : sortByPrice;
   const sortedLeads = mainLeads.toSorted(sortMethod);
@@ -232,6 +266,13 @@ function sortLeadsByType(sortType) {
   mainLeads = sortedLeads;
 }
 
+/**
+ * Сортирует заданные объекты по их свойствам имени.
+ *
+ * @param {Object} a - Первый объект для сравнения
+ * @param {Object} b - второй объект для сравнения
+ * @return {number} Возвращает -1, если a находится перед b, 1, если a находится после b, и 0, если они равны
+ */
 function sortByName(a, b) {
   if (a.name < b.name) {
     return -1;
@@ -242,6 +283,13 @@ function sortByName(a, b) {
   }
 }
 
+/**
+ * Сортирует заданные объекты по цене.
+ *
+ * @param {Object} a - Первый объект для сравнения
+ * @param {Object} b - Второй объект для сравнения
+ * @return {number} - Возвращает -1, если цена a меньше цены b, 1, если цена a больше цены b, и 0, если они равны
+ */
 function sortByPrice(a, b) {
   if (a.price < b.price) {
     return -1;
@@ -252,6 +300,13 @@ function sortByPrice(a, b) {
   }
 }
 
+/**
+ * Сравнивает два массива, преобразуя их в строки и проверяя, равны ли они.
+ *
+ * @param {Array} a - первый сравниваемый массив
+ * @param {Array} b - второй сравниваемый массив
+ * @return {boolean} True, если массивы равны, false в противном случае
+ */
 function compareArrays(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 }
